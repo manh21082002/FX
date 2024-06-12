@@ -12,20 +12,12 @@ from scipy.signal import butter, lfilter
 from sklearn.preprocessing import MinMaxScaler
 import time
 
-# LOGIN = 204979
-# PASSWORD = "HuyManh2002#"
-# SERVER = "ACCapital-Live"
+LOGIN = 0
+PASSWORD = ""
+SERVER = ""
 
-# LOGIN = 10002273196
-# PASSWORD = "6ZnQkBn"
-# SERVER = "MetaQuotes-Demo"
-
-LOGIN = 5026237471
-PASSWORD = "FdP+Qw3w"
-SERVER = "MetaQuotes-Demo"
-
-BOT_ID = "6991905914:AAEk3_I6DzG_5GcxVxE6-k5qbmtohT0K5uQ"
-GROUP_ID = "-4184587836"
+BOT_ID = ""
+GROUP_ID = ""
 
 VOLUME_PER_TRADE = 0.01
 DEVIATION = 1000
