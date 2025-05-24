@@ -22,7 +22,7 @@ GROUP_ID = ""
 VOLUME_PER_TRADE = 0.01
 DEVIATION = 1000
 
-DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1375672560288661576/iDO3zzq_M9af17JZsIxzKNnCaZP9CF4EKPn1jNn0PSlnMsU4LWCn5ZI8JCs7HACUZVyv"
+DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1375680383252955177/kXZAjf9xeK34lkIiBDBIVKuQkeyBTXDARt1NTf85fImvEI9kmUsfUsddYzRVTLFn9CGT"
 
 def get_data_real_time(pair, days, time_frame):
     """pair là cặp ngoại hối
