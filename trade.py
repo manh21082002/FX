@@ -22,6 +22,7 @@ GROUP_ID = ""
 VOLUME_PER_TRADE = 0.01
 DEVIATION = 1000
 
+DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1375672560288661576/iDO3zzq_M9af17JZsIxzKNnCaZP9CF4EKPn1jNn0PSlnMsU4LWCn5ZI8JCs7HACUZVyv"
 
 def get_data_real_time(pair, days, time_frame):
     """pair là cặp ngoại hối
@@ -80,13 +81,17 @@ def Connect_to_MT5():
     print("\n\n")
 
 
-def send_telegram_message(text):
-    token = BOT_ID
-    chat_id = GROUP_ID
-    requests.post(
-        f"https://api.telegram.org/bot{token}/sendMessage",
-        data={"chat_id": chat_id, "text": text},
-    )
+def send_discord_message(text):
+    webhook_url = DISCORD_WEBHOOK_URL  # Biến toàn cục hoặc lấy từ config
+    try:
+        response = requests.post(
+            webhook_url,
+            json={"content": text},
+            timeout=10
+        )
+        response.raise_for_status()
+    except requests.exceptions.RequestException as e:
+        print(f"[Discord] Gửi tin nhắn thất bại: {e}")
 
 
 def open_buy(lots, PAIR):
@@ -264,7 +269,7 @@ def DumpCSV_and_MesToTele(name, path_csv_intraday, Position, Close, token, id, p
     except:
         dict_data = {
             'Datetime': [pd.to_datetime((datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S'))],
-            'Position': [0],
+            'Position': [1],
             'Close': [0],
             'total_gain': [0],
             'gain': [0],
@@ -318,7 +323,7 @@ def DumpCSV_and_MesToTele(name, path_csv_intraday, Position, Close, token, id, p
         mes += f'\nProfit today: {np.round(profit_today*10)/10}'
 
         df.drop(columns=['signal_long', 'signal_short'], inplace=True)
-        send_telegram_message(mes)
+        send_discord_message(mes)
         df.to_csv(path_csv_intraday, index=False)
 
     else:
@@ -534,7 +539,7 @@ if __name__ == '__main__':
 
     name = 'EURUSD_vip1'
     PAIR = 'EURUSD'
-    path_csv = f'C:/Users/Administrator/Documents/ManhNH/PRV/FX/data/{name}.csv'
+    path_csv = f'D:\\Forex\\FX\\{name}.csv'
     time_frame = '15T'
     list_time15m = [f'{hour:02d}:{minute:02d}:55' for hour in range(
         0, 24) for minute in range(14, 60, int(time_frame[:-1]))]
@@ -563,7 +568,7 @@ if __name__ == '__main__':
             num_layers = 2
 
             model = LSTMModel(input_size, hidden_size, output_size, num_layers)
-            model_path = 'C:\\Users\\Administrator\\Documents\\ManhNH\\PRV\\FX\\model\\lstm_model.pth'
+            model_path = 'D:\\Forex\\FX\\model\\lstm_model.pth'
             checkpoint = torch.load(model_path, map_location=torch.device('cpu'))
 
             # Tải trọng số mô hình từ model_state_dict
